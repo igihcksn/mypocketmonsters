@@ -22,7 +22,8 @@ export const QUERY = {
                 url
                 name
                 image
-                abilities
+                dreamworld
+                artwork
             }
         }
     }
