@@ -4,7 +4,7 @@ export const API_POKEMON = 'https://graphql-pokeapi.graphcdn.app';
 
 export const URL = {
     POKEMON_LIST    : '/',
-    POKEMON_DETAILS : '/{slug}/details',
+    POKEMON_DETAILS : '/:slug/details',
     TRAINER_INFO    : '/trainer',
 };
 

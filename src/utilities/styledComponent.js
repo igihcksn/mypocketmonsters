@@ -30,6 +30,7 @@ export const PokeBoxList = styled.div({
     transformOrigin: 'center 60%',
     transition: 'box-shadow 0.2s ease, transform 0.2s ease',
     position: 'relative',
+    cursor: 'pointer',
     ":hover": {
         boxShadow: '0 10px 20px 0 rgb(0 0 0 / 40%)',
         transform: 'scale(1.05)',
@@ -72,5 +73,33 @@ export const PokeBoxListInnerTitle = styled.p`
     font-family: 'Exo 2', sans-serif;
     text-transform: uppercase;
     font-style: italic;
+    @media (max-width: 420px) {
+        font-size: 16px;
+    }
 `;
 
+export const PokeButtonLoadMore = styled.div`
+    width: 100%;
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    background-color: #6523b6;
+`;
+
+export const PokeButtonText = styled.p`
+    font-size: 24px; 
+    background-color: #19072d;
+    color: #ffffff;
+    border-radius: 4px;
+    padding: 0px 10px;
+    margin: 10px 0px;
+    transform: skewX(-10deg);
+    cursor: pointer;
+`;
+
+export const PokeContainerList = styled.div`
+    position: absolute;
+    top: 5%;
+`;
