@@ -48,6 +48,36 @@ export const QUERY = {
                     name
                     }
                 }
+                forms {
+                    id
+                    name
+                }
+                game_indices {
+                    game_index
+                    version {
+                        id
+                        name
+                    }
+                }
+                height
+                sprites {
+                    back_default
+                    back_female
+                    back_shiny
+                    back_shiny_female
+                    front_default
+                    front_shiny
+                    front_shiny_female
+                }
+                stats {
+                    base_stat
+                    effort
+                    stat {
+                        id
+                        name
+                    }
+                }
+                weight
                 message
                 status
             }
