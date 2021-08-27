@@ -64,6 +64,8 @@ const PokemonDetails = () => {
         return res;
     };
 
+    console.log(slug)
+
     const GenerateSprites = (sprites) => (
         <PokeDetailsSprites>
             <img src={sprites.front_default} alt="Front Default" loading="lazy" />
@@ -75,11 +77,11 @@ const PokemonDetails = () => {
 
     return (
         <PokeDetailsContainer>
-            <PokeDetailsImg src={location.state.pokemon.dreamworld} alt={location.state.pokemon.name} loading="lazy" />
+            <PokeDetailsImg src={location.state && location.state.pokemon.dreamworld} alt={location.state && location.state.pokemon.name} loading="lazy" />
             <PokeDetailsInfo>
                 <PokeDetailsCommon>
                     <PokeDetailsName>
-                        {location.state.pokemon.name}
+                        {location.state && location.state.pokemon.name}
                     </PokeDetailsName>
                     <PokeDetailsBoxStatus>
                         {
