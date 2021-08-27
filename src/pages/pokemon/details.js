@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { QUERY } from 'utilities/constants';
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { 
     PokeDetailsBoxStatus,
     PokeDetailsBoxStatusUl,
@@ -16,6 +16,7 @@ import {
 const PokemonDetails = () => {
 
     const { location } = useHistory();
+    const { slug } = useParams();
 
     const [pokemonData, setPokemonData] = useState({
         isLoading: true,
@@ -24,7 +25,7 @@ const PokemonDetails = () => {
 
     const PokeDetailsData = useQuery(QUERY.GET_POKEMON_BY_NAME, {
         variables: {
-            name: location.state.pokemon.name
+            name: slug
         }
     });
 
@@ -37,7 +38,7 @@ const PokemonDetails = () => {
                 data: data.pokemon, 
             })
         }
-    }, [PokeDetailsData])
+    }, [PokeDetailsData]);
 
     const GenerateTypes = (types) => {
         const res = types.map((list) => (
