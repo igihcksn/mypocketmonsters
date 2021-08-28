@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useQuery } from '@apollo/client';
-import { QUERY, URL } from 'utilities/constants';
+import React, { useContext } from 'react';
+import { URL } from 'utilities/constants';
 import { SimpleGrid } from "@chakra-ui/react"
 import { 
     PokeBoxList, 
@@ -9,40 +8,21 @@ import {
     PokeBoxListInnerTitle,
     PokeButtonLoadMore,
     PokeButtonText,
+    PokeListContainer,
 } from 'utilities/styledComponent';
 import { useHistory } from "react-router-dom";
+import { PokeContext } from 'utilities/context';
 
 const PokemonList = () => {
 
     const history = useHistory();
 
-    const [limitData, setLimitData] = useState(10);
-    const [pokemonData, setPokemonData] = useState({});
-    const [isLoading, setLoading] = useState(false);
-
-    const { loading, data, fetchMore } = useQuery(QUERY.GET_LIST_POKEMON, {
-        variables: {
-            limit: limitData,
-            offset: 0,
-        }
-    });
-
-    useEffect(() => {
-        if (data && pokemonData) {
-            setPokemonData(data.pokemons.results)
-            setLoading(loading);
-        };
-    }, [data, loading, pokemonData])
-
-    const loadMore = () => {
-        setLimitData(limitData + 10);
-
-        fetchMore({
-            variables: {
-                limit: limitData,
-            }
-        })
-    };
+    const { 
+        isLoadingList,
+        loadMorePokeList,
+        isLoadingLoad,
+        pokemonData, 
+    } = useContext(PokeContext);
 
     const onClickList = (pokemon) => {
         history.push({
@@ -54,10 +34,10 @@ const PokemonList = () => {
     };
 
     return (
-        <>
-            <SimpleGrid bg="#6523b6" columns={[2, null, 5]} spacing={5} p={5}>
+        <PokeListContainer>
+            <SimpleGrid columns={[2, null, 5]} spacing={5} p={5}>
                 {
-                    !isLoading && pokemonData.length && pokemonData.map((list) => (
+                    !isLoadingList && pokemonData.length && pokemonData.map((list) => (
                         <PokeBoxList key={list.id} onClick={() => onClickList(list)}>
                             <PokeBoxListContainerImage>
                                 <PokeBoxListInnerImage src={list.dreamworld} alt={list.name} loading="lazy" />
@@ -68,11 +48,11 @@ const PokemonList = () => {
                 }
             </SimpleGrid>
             <PokeButtonLoadMore>
-                <PokeButtonText onClick={loadMore}>
-                    { !loading ? 'Loadmore' : 'Please Wait...'}
+                <PokeButtonText onClick={loadMorePokeList}>
+                    { !isLoadingLoad ? 'Loadmore' : 'Please Wait...'}
                 </PokeButtonText>
             </PokeButtonLoadMore>
-        </>
+        </PokeListContainer>
     );
 };
 

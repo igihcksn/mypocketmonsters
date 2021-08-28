@@ -1,28 +1,45 @@
 import styled from '@emotion/styled';
+import { POKEMON_TYPES } from './constants';
 
 export const PokeMainContainer = styled.div`
-    position: relative;
     font-family: 'Exo 2', sans-serif;
+    background-image: linear-gradient(180deg, #f9c921 0%, #19072d);
+`;
+
+export const PokeMainContentContainer = styled.div`
+    position: relative;
 `;
 
 // Header
 export const PokeHeaderImg = styled.img({
-    position: 'absolute',
-    top: '2%',
+    // position: 'absolute',
+    // top: '2%',
+    maxWidth: '500px',
+    // position: 'absolute',
+    // bottom: '0',
 });
 
-export const PokeHeader = styled.header(props => ({
-  display: 'flex',
-  width: '100%',
-  height: 'auto',
-  minHeight: '30vh',
-  color: 'purple',
-  backgroundColor: 'grey',
-  justifyContent: 'center',
-  alignContent: 'center'
-}));
+export const PokeHeader = styled.header`
+    display: flex;
+    width: 100%;
+    height: auto;
+    min-height: 30vh;
+    color: purple;
+    justify-content: center;
+    align-content: center;
+    position: relative;
+
+    @media (max-width: 420px) {
+        flex-direction: column;
+    }
+`;
 
 // Pokemon List
+
+export const PokeListContainer = styled.div`
+    background-color: #6523b6;
+    min-height: 80vh;
+`;
 
 export const PokeBoxList = styled.div({
     backgroundColor: '#19072d',
@@ -89,7 +106,6 @@ export const PokeButtonLoadMore = styled.div`
     text-transform: uppercase;
     display: flex;
     justify-content: center;
-    background-color: #6523b6;
 `;
 
 export const PokeButtonText = styled.p`
@@ -111,13 +127,7 @@ export const PokeContainerList = styled.div`
 // Pokemon details
 
 export const PokeDetailsContainer = styled.div`
-    position: absolute;
     background-image: linear-gradient(180deg, #4a1885 0%, #6523b6, rgba(238,114,33,0) 100%);
-    top: -5rem;
-    left: 0;
-    right: 0;
-    margin: auto;
-    border-radius: 40px 40px 0px 0px;
     padding: 1rem;
     align-items: center;
     display: flex;
@@ -187,4 +197,32 @@ export const PokeDetailsSprites = styled.div`
         flex-wrap: wrap;
         justify-content: center;
     }
+`;
+
+export const PokeDetailTypes = styled.span`
+    color: #19072d;
+    background-color: ${props =>
+        props.type ? POKEMON_TYPES[props.type] : '#19072d'
+    };
+    border: 1px solid #19072d;
+    transform: skewX(-10deg);
+    margin-left: 5px;
+    padding: 0px 2px;
+    border-radius: 4px;
+    display: inline-block;
+    text-transform: uppercase;
+`;
+
+export const PokeDetailsAbilitiesMoves = styled.span`
+    margin: ${props => 
+        props.type === 'move' ? '2px 0px' : 0
+    };
+    color: #ffffff;
+    font-weight: 600;
+    background-color: #19072d;
+    border: 1px solid #19072d;
+    margin-left: 5px;
+    padding: 0px 2px;
+    border-radius: 4px;
+    display: inline-block;
 `;

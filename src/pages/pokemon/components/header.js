@@ -1,11 +1,11 @@
 import React from 'react';
-import { PokemonIcon } from 'assets/images';
+import { PikachuHead, PokemonIcon } from 'assets/images';
 import { PokeHeader, PokeHeaderImg } from 'utilities/styledComponent';
 
 const Header = () => (
     <PokeHeader>
-        <PokeHeaderImg src={PokemonIcon} alt="Pokemon Logo" />
-        <h1>Pokedex</h1>
+        <img src={PokemonIcon} alt="Pokemon Logo" />
+        <PokeHeaderImg src={PikachuHead} alt="Pokemon Logo" />
     </PokeHeader>
 );
 

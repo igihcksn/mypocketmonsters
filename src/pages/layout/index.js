@@ -18,7 +18,8 @@ import { HamburgerIcon } from '@chakra-ui/icons';
 import Header from 'pages/pokemon/components/header';
 import { PokeThemeProvider } from 'utilities/theme';
 import { motion } from "framer-motion"
-import { PokeMainContainer } from 'utilities/styledComponent';
+import { PokeMainContainer, PokeMainContentContainer } from 'utilities/styledComponent';
+import { PokeProvider } from 'utilities/context';
 
 // import components
 const PokemonList = lazy(() => import("../pokemon"));
@@ -66,13 +67,15 @@ const NotFound = () => (
 );
 
 const MainLayout = () => (
+  <PokeProvider>
     <ChakraProvider theme={PokeThemeProvider}>
+    <PokeMainContainer>
         <Navbar />
 
         <Header />
 
         <motion.div exit={{ opacity: 0 }}>
-          <PokeMainContainer>
+          <PokeMainContentContainer>
             <Suspense fallback={<span>Loading items...</span>}>
                 <Switch>
                     <Route path={URL.POKEMON_LIST} component={PokemonList} exact />
@@ -82,9 +85,11 @@ const MainLayout = () => (
                     <Route component={NotFound} />
                 </Switch>
             </Suspense>   
-          </PokeMainContainer>
+          </PokeMainContentContainer>
         </motion.div>
+      </PokeMainContainer>
     </ChakraProvider>
+  </PokeProvider>
 );
 
 export default MainLayout;

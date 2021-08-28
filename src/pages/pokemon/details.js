@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { QUERY } from 'utilities/constants';
 import { useHistory, useParams } from "react-router-dom";
 import { 
+    PokeDetailsAbilitiesMoves,
     PokeDetailsBoxStatus,
     PokeDetailsBoxStatusUl,
     PokeDetailsCommon, 
@@ -11,6 +12,7 @@ import {
     PokeDetailsInfo,
     PokeDetailsName,
     PokeDetailsSprites, 
+    PokeDetailTypes,
 } from 'utilities/styledComponent';
 
 const PokemonDetails = () => {
@@ -22,12 +24,33 @@ const PokemonDetails = () => {
         isLoading: true,
         data: null,
     });
+    const [pokemonEvolutionData, setPokemonEvolutionData] = useState({
+        isLoading: true,
+        data: null,
+    });
 
     const PokeDetailsData = useQuery(QUERY.GET_POKEMON_BY_NAME, {
         variables: {
             name: slug
         }
     });
+
+    const getEvolutionChain = (url) => {
+        fetch(url)
+        .then(res => res.json())
+        .then(data => setPokemonEvolutionData({
+            isLoading: false,
+            data: data.chain
+        }))
+    }
+    
+    const getSpeciesData = useCallback(
+        (url) => {
+            fetch(url)
+            .then(res => res.json())
+            .then(data => getEvolutionChain(data.evolution_chain.url))
+        }, []
+    );
 
     useEffect(() => {
         const { loading, data } = PokeDetailsData
@@ -37,12 +60,16 @@ const PokemonDetails = () => {
                 isLoading: loading,
                 data: data.pokemon, 
             })
+
+            getSpeciesData(data.pokemon.species.url)
         }
-    }, [PokeDetailsData]);
+    }, [PokeDetailsData, getSpeciesData]);
 
     const GenerateTypes = (types) => {
         const res = types.map((list) => (
-            <span key={list.type.name} style={{marginLeft: '5px'}}>{list.type.name}</span>
+            <PokeDetailTypes key={list.type.name} type={list.type.name}>
+                {list.type.name}
+            </PokeDetailTypes>
         ));
 
         return res;
@@ -50,7 +77,7 @@ const PokemonDetails = () => {
 
     const GenerateAbilities = (abilities) => {
         const res = abilities.map((list) => (
-            <span key={list.ability.name} style={{marginLeft: '5px'}}>{list.ability.name}</span>
+            <PokeDetailsAbilitiesMoves key={list.ability.name}>{list.ability.name}</PokeDetailsAbilitiesMoves>
         ));
 
         return res;
@@ -58,13 +85,11 @@ const PokemonDetails = () => {
 
     const GenerateMoves = (moves) => {
         const res = moves.map((list) => (
-            <span key={list.move.name} style={{marginLeft: '5px', backgroundColor: 'grey'}}>{list.move.name}</span>
+            <PokeDetailsAbilitiesMoves key={list.move.name} type="move">{list.move.name}</PokeDetailsAbilitiesMoves>
         ));
 
         return res;
     };
-
-    console.log(slug)
 
     const GenerateSprites = (sprites) => (
         <PokeDetailsSprites>
@@ -88,16 +113,16 @@ const PokemonDetails = () => {
                             !pokemonData.isLoading &&
                                 <PokeDetailsBoxStatusUl>
                                     <li>
-                                        Type: { GenerateTypes(pokemonData.data.types) }
+                                        TYPES: { GenerateTypes(pokemonData.data.types) }
                                     </li>
                                     <li>
-                                        Height: { pokemonData.data.height } m
+                                        HEIGHT: { pokemonData.data.height } m
                                     </li>
                                     <li>
-                                        Weigh: { pokemonData.data.weight } kg
+                                        WEIGHT: { pokemonData.data.weight } kg
                                     </li>
                                     <li>
-                                        Abilities: { GenerateAbilities(pokemonData.data.abilities) }
+                                        ABILITIES: { GenerateAbilities(pokemonData.data.abilities) }
                                     </li>
                                 </PokeDetailsBoxStatusUl>
                         }
