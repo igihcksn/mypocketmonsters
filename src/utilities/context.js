@@ -43,6 +43,7 @@ const PokeProvider = (props) => {
             isLoadingList,
             isLoadingLoad,
             loadMorePokeList,
+            randomTry: props.injectValue.randomTry,
         }}>
             { props.children }
         </PokeContext.Provider>

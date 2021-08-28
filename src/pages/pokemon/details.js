@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { API_POKEMON_OFFICIAL, QUERY } from 'utilities/constants';
 import { useParams } from "react-router-dom";
@@ -6,6 +6,7 @@ import {
     PokeDetailsAbilitiesMoves,
     PokeDetailsBoxStatus,
     PokeDetailsBoxStatusUl,
+    PokeDetailsCatch,
     PokeDetailsCommon, 
     PokeDetailsContainer, 
     PokeDetailsImg, 
@@ -13,11 +14,16 @@ import {
     PokeDetailsName,
     PokeDetailsSprites, 
     PokeDetailTypes,
+    PokeDetailsLeftImage,
+    PokeDetailTitleSection,
 } from 'utilities/styledComponent';
+import { Skeleton, Stack } from "@chakra-ui/react"
+import { PokeContext } from 'utilities/context';
 
 const PokemonDetails = () => {
 
     const { slug } = useParams();
+    const { randomTry } = useContext(PokeContext)
 
     const [pokemonData, setPokemonData] = useState({
         isLoading: true,
@@ -115,7 +121,17 @@ const PokemonDetails = () => {
 
     return (
         <PokeDetailsContainer>
-            <PokeDetailsImg src={pokemonDetailData.artWork && pokemonDetailData.artWork.dream_world.front_default } alt={pokemonData.data && pokemonData.data.name} loading="lazy" />
+            <PokeDetailsLeftImage>
+                {
+                    !pokemonDetailData.artWork && <Skeleton height="250px" />
+                }
+                {
+                    pokemonDetailData.artWork && <>
+                        <PokeDetailsImg src={pokemonDetailData.artWork && pokemonDetailData.artWork.dream_world.front_default } alt={pokemonData.data && pokemonData.data.name} loading="lazy" />
+                        <PokeDetailsCatch onClick={() => randomTry()}>Catch</PokeDetailsCatch>
+                    </>
+                }
+            </PokeDetailsLeftImage>
             <PokeDetailsInfo>
                 <PokeDetailsCommon>
                     <PokeDetailsName>
@@ -140,19 +156,30 @@ const PokemonDetails = () => {
                                 </PokeDetailsBoxStatusUl>
                         }
                         {
-                            pokemonData.isLoading && <p>Loading data...</p>
+                            pokemonData.isLoading && <Stack>
+                                <Skeleton height="20px" />
+                                <Skeleton height="20px" />
+                                <Skeleton height="20px" />
+                                <Skeleton height="20px" />
+                            </Stack>
                         }
                     </PokeDetailsBoxStatus>
-                    <h4>Sprites</h4>
+                    <PokeDetailTitleSection>Sprites</PokeDetailTitleSection>
                     <PokeDetailsBoxStatus flex>
                         {
                             !pokemonData.isLoading && GenerateSprites(pokemonData.data.sprites)
                         }
+                        {
+                            pokemonData.isLoading && <Skeleton height="20px" />
+                        }
                     </PokeDetailsBoxStatus>
-                    <h4>Moves</h4>
+                    <PokeDetailTitleSection>Moves</PokeDetailTitleSection>
                     <PokeDetailsBoxStatus>
                         {
                             !pokemonData.isLoading && GenerateMoves(pokemonData.data.moves)
+                        }
+                        {
+                            pokemonData.isLoading && <Skeleton height="20px" />
                         }
                     </PokeDetailsBoxStatus>
                 </PokeDetailsCommon>

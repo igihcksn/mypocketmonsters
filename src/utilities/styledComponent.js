@@ -10,6 +10,34 @@ export const PokeMainContentContainer = styled.div`
     position: relative;
 `;
 
+export const MobileNav = styled.div`
+    display: none;
+
+    @media (max-width: 420px) {
+        display: flex;
+        background: #19072d;
+        width: 100%;
+        height: 80px;
+        position: sticky;
+        border-radius: 10px 10px 0px 0px;
+        bottom: 0;
+        padding: 10px;
+        box-shadow: 0 10px 20px 0 rgb(0 0 0 / 40%);
+    }
+`;
+
+export const MobileNavButton = styled.button`
+    width: 100%;
+    color: #ffffff;
+    font-weight: 700;
+    padding: 2px 20px;
+    border-radius: 10px;
+    border: 2px solid #e45b04;
+    background-color: #af4417;
+    margin: 10px;
+    transform: skewX(-10deg);
+`;
+
 // Header
 export const PokeHeaderImg = styled.img({
     // position: 'absolute',
@@ -31,6 +59,9 @@ export const PokeHeader = styled.header`
 
     @media (max-width: 420px) {
         flex-direction: column;
+        display: ${props =>
+            props.isHidden ? 'none' : 'flex'
+        };
     }
 `;
 
@@ -136,6 +167,7 @@ export const PokeDetailsContainer = styled.div`
     padding: 1rem;
     align-items: center;
     display: flex;
+    min-height: 100vh;
 
     @media (max-width: 420px) {
         flex-direction: column;
@@ -143,10 +175,9 @@ export const PokeDetailsContainer = styled.div`
 `;
 
 export const PokeDetailsImg = styled.img`
-    max-width: 500px;
+    width: 100%;
     max-height: 500px;
     padding: 1rem;
-    align-self: flex-start;
 
     @media (max-width: 420px) {
         align-self: center;
@@ -192,6 +223,7 @@ export const PokeDetailsBoxStatusUl = styled.ul`
 export const PokeDetailsInfo = styled.div`
     display: flex;
     width: 100%;
+    min-height: 100vh;
 `;
 
 export const PokeDetailsSprites = styled.div`
@@ -230,4 +262,31 @@ export const PokeDetailsAbilitiesMoves = styled.span`
     padding: 0px 2px;
     border-radius: 4px;
     display: inline-block;
+`;
+
+export const PokeDetailsLeftImage = styled.div`
+    display: flex;
+    align-self: flex-start;
+    justify-conteng: center;
+    flex-direction: column;
+    width: 100%;
+`;
+
+export const PokeDetailsCatch = styled.button`
+    color: #ffffff;
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 2px solid #e45b04;
+    background-color: #af4417;
+
+    @media (max-width: 420px) {
+        display: none;
+    }
+`;
+
+export const PokeDetailTitleSection = styled.p`
+    font-weight: 600;
+    color: #ffffff;
+    text-transform: uppercase;
 `;
