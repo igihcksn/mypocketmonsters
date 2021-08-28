@@ -34,6 +34,11 @@ export const PokeHeader = styled.header`
     }
 `;
 
+export const PokeFilterList = styled.div`
+    padding: 1rem;
+    display: flex;
+`;
+
 // Pokemon List
 
 export const PokeListContainer = styled.div`
@@ -179,7 +184,7 @@ export const PokeDetailsBoxStatus = styled.div`
     box-shadow: 0 10px 20px 0 rgb(0 0 0 / 40%);
 `;
 
-export const PokeDetailsBoxStatusUl = styled.div`
+export const PokeDetailsBoxStatusUl = styled.ul`
     padding: 1rem;
     list-style-type: none;
 `;

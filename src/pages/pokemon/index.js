@@ -8,6 +8,7 @@ import {
     PokeBoxListInnerTitle,
     PokeButtonLoadMore,
     PokeButtonText,
+    PokeFilterList,
     PokeListContainer,
 } from 'utilities/styledComponent';
 import { useHistory } from "react-router-dom";
@@ -35,6 +36,8 @@ const PokemonList = () => {
 
     return (
         <PokeListContainer>
+            <PokeFilterList>
+            </PokeFilterList>
             <SimpleGrid columns={[2, null, 5]} spacing={5} p={5}>
                 {
                     !isLoadingList && pokemonData.length && pokemonData.map((list) => (

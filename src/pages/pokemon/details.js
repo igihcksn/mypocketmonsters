@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { QUERY } from 'utilities/constants';
-import { useHistory, useParams } from "react-router-dom";
+import { API_POKEMON_OFFICIAL, QUERY } from 'utilities/constants';
+import { useParams } from "react-router-dom";
 import { 
     PokeDetailsAbilitiesMoves,
     PokeDetailsBoxStatus,
@@ -17,19 +17,21 @@ import {
 
 const PokemonDetails = () => {
 
-    const { location } = useHistory();
     const { slug } = useParams();
 
     const [pokemonData, setPokemonData] = useState({
         isLoading: true,
         data: null,
     });
+    const [pokemonDetailData, setPokemonDetailData] = useState({
+        artWork: null,
+    });
     const [pokemonEvolutionData, setPokemonEvolutionData] = useState({
         isLoading: true,
         data: null,
     });
 
-    const PokeDetailsData = useQuery(QUERY.GET_POKEMON_BY_NAME, {
+    const PokeCommonData = useQuery(QUERY.GET_POKEMON_BY_NAME, {
         variables: {
             name: slug
         }
@@ -44,6 +46,16 @@ const PokemonDetails = () => {
         }))
     }
     
+    const getDetailsData = useCallback(
+        (pokemonName) => {
+            fetch(`${API_POKEMON_OFFICIAL}/pokemon/${pokemonName}`)
+            .then(res => res.json())
+            .then(data => setPokemonDetailData({
+                artWork: data.sprites.other,
+            }))
+        }, []
+    );
+
     const getSpeciesData = useCallback(
         (url) => {
             fetch(url)
@@ -53,7 +65,7 @@ const PokemonDetails = () => {
     );
 
     useEffect(() => {
-        const { loading, data } = PokeDetailsData
+        const { loading, data } = PokeCommonData
         
         if(data) {
             setPokemonData({
@@ -62,8 +74,9 @@ const PokemonDetails = () => {
             })
 
             getSpeciesData(data.pokemon.species.url)
+            getDetailsData(data.pokemon.name);
         }
-    }, [PokeDetailsData, getSpeciesData]);
+    }, [PokeCommonData, getDetailsData, getSpeciesData]);
 
     const GenerateTypes = (types) => {
         const res = types.map((list) => (
@@ -93,20 +106,20 @@ const PokemonDetails = () => {
 
     const GenerateSprites = (sprites) => (
         <PokeDetailsSprites>
-            <img src={sprites.front_default} alt="Front Default" loading="lazy" />
-            <img src={sprites.front_shiny} alt="Back Shiny" loading="lazy" />
-            <img src={sprites.back_default} alt="Back Default" loading="lazy" />
-            <img src={sprites.back_shiny} alt="Back Shiny" loading="lazy" />
+            <img src={sprites.front_default} width="96" height="96" alt="Front Default" loading="lazy" />
+            <img src={sprites.front_shiny} width="96" height="96" alt="Back Shiny" loading="lazy" />
+            <img src={sprites.back_default} width="96" height="96" alt="Back Default" loading="lazy" />
+            <img src={sprites.back_shiny} width="96" height="96" alt="Back Shiny" loading="lazy" />
         </PokeDetailsSprites>
     );
 
     return (
         <PokeDetailsContainer>
-            <PokeDetailsImg src={location.state && location.state.pokemon.dreamworld} alt={location.state && location.state.pokemon.name} loading="lazy" />
+            <PokeDetailsImg src={pokemonDetailData.artWork && pokemonDetailData.artWork.dream_world.front_default } alt={pokemonData.data && pokemonData.data.name} loading="lazy" />
             <PokeDetailsInfo>
                 <PokeDetailsCommon>
                     <PokeDetailsName>
-                        {location.state && location.state.pokemon.name}
+                        {pokemonData.data && pokemonData.data.name}
                     </PokeDetailsName>
                     <PokeDetailsBoxStatus>
                         {

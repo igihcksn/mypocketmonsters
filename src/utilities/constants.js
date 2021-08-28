@@ -1,6 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const API_POKEMON = 'https://graphql-pokeapi.graphcdn.app';
+export const API_POKEMON_OFFICIAL = 'https://pokeapi.co/api/v2';
 
 export const URL = {
     POKEMON_LIST    : '/',

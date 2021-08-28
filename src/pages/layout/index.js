@@ -70,8 +70,6 @@ const MainLayout = () => (
   <PokeProvider>
     <ChakraProvider theme={PokeThemeProvider}>
     <PokeMainContainer>
-        <Navbar />
-
         <Header />
 
         <motion.div exit={{ opacity: 0 }}>
