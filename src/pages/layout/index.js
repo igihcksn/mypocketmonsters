@@ -3,6 +3,7 @@ import { Route, Switch, useHistory } from 'react-router-dom';
 import { URL } from 'utilities/constants';
 import { ChakraProvider } from '@chakra-ui/react';
 import Header from 'pages/pokemon/components/header';
+import Footer from 'pages/pokemon/components/footer';
 import { PokeThemeProvider } from 'utilities/theme';
 import { MobileNav, MobileNavButton, PokeMainContainer, PokeMainContentContainer } from 'utilities/styledComponent';
 import { PokeProvider } from 'utilities/context';
@@ -41,6 +42,8 @@ const MainLayout = () => {
               </p>
             ),
           })
+
+          return true;
       } else {
         toast({
           position: "top",
@@ -51,6 +54,8 @@ const MainLayout = () => {
             </p>
           ),
         })
+
+        return false;
       }
     }
   }
@@ -59,7 +64,7 @@ const MainLayout = () => {
     <PokeProvider injectValue={{randomTry}}>
       <ChakraProvider theme={PokeThemeProvider}>
       <PokeMainContainer>
-          <Header isHidden={history.location.pathname !== URL.POKEMON_LIST} />
+          <Header isList={history.location.pathname !== URL.POKEMON_LIST} />
 
           <PokeMainContentContainer>
             <Suspense fallback={<span>Loading items...</span>}>
@@ -74,11 +79,18 @@ const MainLayout = () => {
           </PokeMainContentContainer>
 
           <MobileNav>
-              <MobileNavButton onClick={() => clickMenu(URL.POKEMON_LIST)}>Home</MobileNavButton>
-              <MobileNavButton hidden={history.location.pathname === (URL.POKEMON_LIST || URL.TRAINER_INFO)} onClick={() => randomTry()}>Catch</MobileNavButton>
-              <MobileNavButton onClick={() => clickMenu(URL.TRAINER_INFO)}>MyList</MobileNavButton>
+              <MobileNavButton 
+                active={history.location.pathname === URL.POKEMON_LIST} 
+                onClick={() => clickMenu(URL.POKEMON_LIST)}>Home</MobileNavButton>
+              <MobileNavButton 
+                hidden={(history.location.pathname === URL.POKEMON_LIST || history.location.pathname === URL.TRAINER_INFO)} 
+                onClick={() => randomTry()}>Catch</MobileNavButton>
+              <MobileNavButton 
+                active={history.location.pathname === URL.TRAINER_INFO} onClick={() => clickMenu(URL.TRAINER_INFO)}>MyList</MobileNavButton>
           </MobileNav>
         </PokeMainContainer>
+
+        <Footer />
       </ChakraProvider>
     </PokeProvider>
   );

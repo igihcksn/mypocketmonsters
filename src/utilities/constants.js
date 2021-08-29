@@ -20,7 +20,7 @@ export const POKEMON_TYPES = {
     'ghost': '#705898',
     'steel': '#B8B8D0',
     'fire': '#F08030',
-    'water': '6890F0',
+    'water': '#6890F0',
     'grass': '#78C850',
     'electric': '#F8D030',
     'psychic': '#F85888',

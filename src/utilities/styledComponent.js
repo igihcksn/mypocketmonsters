@@ -1,4 +1,5 @@
-import styled from '@emotion/styled';
+import styled from '@emotion/styled/macro';
+import { PokeballIcon } from 'assets/images';
 import { POKEMON_TYPES } from './constants';
 
 export const PokeMainContainer = styled.div`
@@ -33,9 +34,44 @@ export const MobileNavButton = styled.button`
     padding: 2px 20px;
     border-radius: 10px;
     border: 2px solid #e45b04;
-    background-color: #af4417;
+    background-color: ${props => 
+        props.active ? '#e45b04' : '#af4417'
+    };
     margin: 10px;
     transform: skewX(-10deg);
+`;
+
+export const PokeButtonBack = styled.div`
+    font-size: 24px; 
+    background-color: #ffffff;
+    color: #220a3d;
+    border-radius: 4px;
+    padding: 0px 10px;
+    margin: 10px 10px 10px 0px;
+    border: 2px solid #220a3d;
+    transform: skewX(-10deg);
+    font-weight: 600;
+    text-transform: uppercase;
+    box-shadow: 0 10px 20px 0 rgb(0 0 0 / 40%);
+    cursor: pointer;
+
+    @media (max-width: 420px) {
+        display: none;
+    }
+`;
+
+export const PokeButtonBackHeader = styled.div`
+    display: none;
+    width: 100%;
+    padding: 5px;
+    font-weight: 600;
+    justify-content: flex-start;
+
+    @media (max-width: 420px) {
+        display: ${props => 
+            props.isList ? 'inline-block' : 'none'
+        };
+    }
 `;
 
 // Header
@@ -49,19 +85,37 @@ export const PokeHeaderImg = styled.img({
 
 export const PokeHeader = styled.header`
     display: flex;
-    width: 100%;
-    height: auto;
-    min-height: 30vh;
-    color: purple;
+    color: #19072d;
     justify-content: center;
     align-content: center;
     position: relative;
+`;
+
+export const PokeHeaderImgContainer = styled.div`
+    width: 100%;
+    height: auto;
+    min-height: 30vh;
 
     @media (max-width: 420px) {
         flex-direction: column;
         display: ${props =>
-            props.isHidden ? 'none' : 'flex'
+            props.isList ? 'none' : 'flex'
         };
+        min-heigh: ${props =>
+            props.isList ? '30vh' : '10vh'
+        };
+    }
+`;
+
+export const PokeFooter = styled.footer`
+    display: flex;
+    width: 100%;
+    height: 200px;
+    background-color: #19072d;
+    color: #ffffff;
+
+    @media (max-width: 420px) {
+        display: none;
     }
 `;
 
@@ -104,6 +158,17 @@ export const PokeBoxListContainerImage = styled.div`
     width: 100%;
     height: 300px;
     background-color: #ffffff;
+    @media (max-width: 420px) {
+        height: 200px;
+    }
+`;
+
+export const PokeBoxInnerBackground = styled.p`
+    background: url(${PokeballIcon}) no-repeat;
+    background-size: contain;
+    height: 300px;
+    opacity: 0.4;
+
     @media (max-width: 420px) {
         height: 200px;
     }
@@ -272,16 +337,37 @@ export const PokeDetailsLeftImage = styled.div`
     width: 100%;
 `;
 
-export const PokeDetailsCatch = styled.button`
+export const PokeDetailsCatch = styled.div`
     color: #ffffff;
     font-weight: 700;
     padding: 10px 20px;
     border-radius: 20px;
     border: 2px solid #e45b04;
     background-color: #af4417;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    text-transform: uppercase;
+    transform: skewX(-10deg);
+    margin: 10px;
+`;
+
+export const PokeDetailsActions = styled.div`
+    display: flex;
+    justify-content: center;
 
     @media (max-width: 420px) {
         display: none;
+    }
+`;
+
+export const PokeDetailsBallImg = styled.img`
+    transition: transform 0.2s ease-in-out;
+    margin-right: 10px;
+
+    &:hover + ${PokeDetailsCatch} {
+        transform: rotate(180deg);
     }
 `;
 
@@ -289,4 +375,75 @@ export const PokeDetailTitleSection = styled.p`
     font-weight: 600;
     color: #ffffff;
     text-transform: uppercase;
+`;
+
+// Trainer Info
+
+export const PokeTrainerContainer = styled.div`
+    background-image: linear-gradient(180deg, #4a1885 0%, #6523b6, rgba(238,114,33,0) 100%);
+    padding: 1rem;
+    align-items: center;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+`;
+
+export const PokeTainerContentContainer = styled.div`
+    display: flex;
+    width: 100%;
+
+    @media (max-width: 420px) {
+        flex-direction: column;
+    }
+`;
+
+export const PokeTrainerInfoLeft = styled.div`
+    background-color: #ffffff;
+    color: #19072d;
+    border-radius: 20px;
+    padding: 10px;
+    align-self: flex-start;
+    display: flex;
+    margin: 10px;
+    box-shadow: 0 10px 20px 0 rgb(0 0 0 / 40%);
+`;
+
+export const PokeTrainerInfoRight = styled.div`
+    width: 100%;
+    flex-direction: column;
+    align-self: flex-start;
+    margin: 10px;
+
+    @media (max-width: 420px) {
+        align-self: center;
+    }
+`;
+
+export const PokeTrainerName = styled.ul`
+    background-color: #ffffff;
+    color: #19072d;
+    border-radius: 10px;
+    padding: 10px;
+    list-style-type: none;
+    box-shadow: 0 10px 20px 0 rgb(0 0 0 / 40%);
+`;
+
+export const PokeTrainerTitle = styled.div`
+    display: flex;
+`;
+
+export const PokeTrainerTitleSection = styled.p`
+    font-weight: 600;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin: 10px 0px;
+`;
+
+export const PokeTrainerList = styled.ul`
+    background-color: #ffffff;
+    color: #19072d;
+    border-radius: 10px;
+    padding: 10px;
+    list-style-type: none;
+    box-shadow: 0 10px 20px 0 rgb(0 0 0 / 40%);
 `;

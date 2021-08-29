@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { API_POKEMON_OFFICIAL, QUERY } from 'utilities/constants';
-import { useParams } from "react-router-dom";
+import { API_POKEMON_OFFICIAL, QUERY, URL } from 'utilities/constants';
+import { useHistory, useParams } from "react-router-dom";
 import { 
     PokeDetailsAbilitiesMoves,
     PokeDetailsBoxStatus,
@@ -16,12 +16,17 @@ import {
     PokeDetailTypes,
     PokeDetailsLeftImage,
     PokeDetailTitleSection,
+    PokeDetailsBallImg,
+    PokeDetailsActions,
 } from 'utilities/styledComponent';
 import { Skeleton, Stack } from "@chakra-ui/react"
 import { PokeContext } from 'utilities/context';
+import { PokeballIcon } from 'assets/images';
+import { ArrowBackIcon } from '@chakra-ui/icons';
 
 const PokemonDetails = () => {
 
+    const history = useHistory();
     const { slug } = useParams();
     const { randomTry } = useContext(PokeContext)
 
@@ -119,6 +124,31 @@ const PokemonDetails = () => {
         </PokeDetailsSprites>
     );
 
+    const CatchPokemon = () => {
+        const { data } = pokemonData;
+        const { artWork } = pokemonDetailData;
+        const MyPokemons = localStorage.getItem('myPokemon');
+        const ThrowPokeball = randomTry();
+        const mock = {
+            name: data.name,
+            artWork,
+        }
+
+        if (ThrowPokeball) {
+            if(!MyPokemons) {
+                localStorage.setItem('myPokemon', JSON.stringify([
+                    mock
+                ]));
+            } else {
+                const parseData = JSON.parse(MyPokemons);
+                localStorage.setItem('myPokemon', JSON.stringify([
+                    mock,
+                    ...parseData,
+                ]));
+            }
+        }
+    }
+
     return (
         <PokeDetailsContainer>
             <PokeDetailsLeftImage>
@@ -128,7 +158,18 @@ const PokemonDetails = () => {
                 {
                     pokemonDetailData.artWork && <>
                         <PokeDetailsImg src={pokemonDetailData.artWork && pokemonDetailData.artWork.dream_world.front_default } alt={pokemonData.data && pokemonData.data.name} loading="lazy" />
-                        <PokeDetailsCatch onClick={() => randomTry()}>Catch</PokeDetailsCatch>
+                        <PokeDetailsActions>
+                            <PokeDetailsCatch onClick={() => history.push(URL.POKEMON_LIST)}>
+                                <ArrowBackIcon /> Back
+                            </PokeDetailsCatch>
+                            <PokeDetailsCatch onClick={() => CatchPokemon()}>
+                                <PokeDetailsBallImg width="30px" height="30px" src={PokeballIcon} alt="Pokeball" />
+                                Catch
+                            </PokeDetailsCatch>
+                            <PokeDetailsCatch onClick={() => history.push(URL.TRAINER_INFO)}>
+                                My Pokemon
+                            </PokeDetailsCatch>
+                        </PokeDetailsActions>
                     </>
                 }
             </PokeDetailsLeftImage>
