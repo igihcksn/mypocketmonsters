@@ -12,9 +12,9 @@ const ModalNickname = (props) => {
     const ClickSave = () => {
         const { data } = commonData;
         const { artWork } = artworkData;
-        
+
         const mock = {
-            name: data.name,
+            name: data || data.name,
             artWork,
             nickname: nickname,
         }

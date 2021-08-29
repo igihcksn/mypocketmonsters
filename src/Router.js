@@ -4,6 +4,7 @@ import MainLayout from 'pages/layout';
 import { ApolloProvider } from "@apollo/client";
 import { ApolloClinet } from 'utilities/utility';
 import { motion } from "framer-motion";
+import { PokeProvider } from 'utilities/context';
 
 const MainRouter = () => (
     <Router>
@@ -15,7 +16,9 @@ const MainRouter = () => (
         >
             <Switch>
                 <ApolloProvider client={ApolloClinet}>
-                    <Route path="/" component={MainLayout} />
+                    <PokeProvider>
+                        <Route path="/" component={MainLayout} />
+                    </PokeProvider>
                 </ApolloProvider>
             </Switch>
         </motion.div>

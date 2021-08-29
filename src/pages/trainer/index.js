@@ -47,8 +47,6 @@ const TrainerDetails = () => {
         setPokemonData([...pokemonData])
     }
 
-    console.log(pokemonData)
-
     return (
         <PokeTrainerContainer>
             <PokeTrainerTitle>

@@ -1,13 +1,18 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useContext, useState } from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import { URL } from 'utilities/constants';
 import { ChakraProvider } from '@chakra-ui/react';
 import Header from 'pages/pokemon/components/header';
 import Footer from 'pages/pokemon/components/footer';
 import { PokeThemeProvider } from 'utilities/theme';
-import { MobileNav, MobileNavButton, PokeMainContainer, PokeMainContentContainer, PokeNotifCatchFail } from 'utilities/styledComponent';
-import { PokeProvider } from 'utilities/context';
-import { useToast } from "@chakra-ui/react"
+import { 
+  MobileNav, 
+  MobileNavButton, 
+  PokeMainContainer, 
+  PokeMainContentContainer, 
+} from 'utilities/styledComponent';
+import { PokeContext } from 'utilities/context';
+import ModalNickname from 'pages/pokemon/components/modalNickname';
 
 // import components
 const PokemonList = lazy(() => import("../pokemon"));
@@ -20,38 +25,28 @@ const NotFound = () => (
 
 const MainLayout = () => {
   const history = useHistory();
-  const toast = useToast();
+  const { 
+    pokemonDetailData,
+    pokemonDetailArtwork,
+    randomTry, 
+  } = useContext(PokeContext);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const clickMenu = (path) => {
     history.push(path);
   }
 
-  const probability = { 50 : 50 };
+  const CatchPokemon = () => {
+    const ThrowPokeball = randomTry();
 
-  const randomTry = () => {
-    const random = Math.floor(Math.random() * 100);
-
-    for(const prob in probability) {
-      if(prob >= random) {
-          return true;
-      } else {
-        toast({
-          position: "top",
-          duration: 3000,
-          render: () => (
-            <PokeNotifCatchFail>
-                Opps pokemon broke free, try again
-            </PokeNotifCatchFail>
-          ),
-        })
-
-        return false;
-      }
+    if (ThrowPokeball) {
+        setIsModalOpen(true)
     }
-  }
+}
 
   return (
-    <PokeProvider injectValue={{randomTry}}>
+    <>
       <ChakraProvider theme={PokeThemeProvider}>
       <PokeMainContainer>
           <Header isList={history.location.pathname !== URL.POKEMON_LIST} />
@@ -74,15 +69,22 @@ const MainLayout = () => {
                 onClick={() => clickMenu(URL.POKEMON_LIST)}>Home</MobileNavButton>
               <MobileNavButton 
                 hidden={(history.location.pathname === URL.POKEMON_LIST || history.location.pathname === URL.TRAINER_INFO)} 
-                onClick={() => randomTry()}>Catch</MobileNavButton>
+                onClick={() => CatchPokemon()}>Catch</MobileNavButton>
               <MobileNavButton 
                 active={history.location.pathname === URL.TRAINER_INFO} onClick={() => clickMenu(URL.TRAINER_INFO)}>MyList</MobileNavButton>
           </MobileNav>
+
+          <ModalNickname 
+              isOpen={isModalOpen}  
+              onOpen={() => setIsModalOpen(true)} 
+              onClose={() => setIsModalOpen(false)} 
+              commonData={pokemonDetailData}
+              artworkData={pokemonDetailArtwork} />
         </PokeMainContainer>
 
         <Footer />
       </ChakraProvider>
-    </PokeProvider>
+    </>
   );
 }
 

@@ -19,7 +19,7 @@ import {
     PokeDetailsBallImg,
     PokeDetailsActions,
 } from 'utilities/styledComponent';
-import { Skeleton, Stack, useDisclosure } from "@chakra-ui/react"
+import { Skeleton, Stack } from "@chakra-ui/react"
 import { PokeContext } from 'utilities/context';
 import { PokeballIcon } from 'assets/images';
 import { ArrowBackIcon } from '@chakra-ui/icons';
@@ -29,14 +29,11 @@ const PokemonDetails = () => {
 
     const history = useHistory();
     const { slug } = useParams();
-    const { randomTry } = useContext(PokeContext)
+    const { catchPokemon, pokemonDetailArtwork, setPokemonDetailArtwork, setPokemonDetailData } = useContext(PokeContext)
 
     const [pokemonData, setPokemonData] = useState({
         isLoading: true,
         data: null,
-    });
-    const [pokemonDetailData, setPokemonDetailData] = useState({
-        artWork: null,
     });
     const [pokemonEvolutionData, setPokemonEvolutionData] = useState({
         isLoading: true,
@@ -57,17 +54,25 @@ const PokemonDetails = () => {
         .then(data => setPokemonEvolutionData({
             isLoading: false,
             data: data.chain
-        }))
-    }
+        }));
+    };
     
     const getDetailsData = useCallback(
         (pokemonName) => {
             fetch(`${API_POKEMON_OFFICIAL}/pokemon/${pokemonName}`)
             .then(res => res.json())
-            .then(data => setPokemonDetailData({
-                artWork: data.sprites.other,
-            }))
-        }, []
+            .then(data => {
+                    setPokemonDetailArtwork({
+                        artWork: data.sprites.other,
+                    });
+                    setPokemonDetailData({
+                        data: {
+                            name: data.name,
+                        }
+                    });
+                }
+            );
+        }, [setPokemonDetailArtwork, setPokemonDetailData]
     );
 
     const getSpeciesData = useCallback(
@@ -131,28 +136,20 @@ const PokemonDetails = () => {
         </PokeDetailsSprites>
     );
 
-    const CatchPokemon = () => {
-        const ThrowPokeball = randomTry();
-
-        if (ThrowPokeball) {
-            setIsModalOpen(true)
-        }
-    }
-
     return (
         <PokeDetailsContainer>
             <PokeDetailsLeftImage>
                 {
-                    !pokemonDetailData.artWork && <Skeleton height="250px" />
+                    !pokemonDetailArtwork.artWork && <Skeleton height="250px" />
                 }
                 {
-                    pokemonDetailData.artWork && <>
-                        <PokeDetailsImg src={pokemonDetailData.artWork && pokemonDetailData.artWork.dream_world.front_default } alt={pokemonData.data && pokemonData.data.name} loading="lazy" />
+                    pokemonDetailArtwork.artWork && <>
+                        <PokeDetailsImg src={pokemonDetailArtwork.artWork && pokemonDetailArtwork.artWork.dream_world.front_default } alt={pokemonData.data && pokemonData.data.name} loading="lazy" />
                         <PokeDetailsActions>
                             <PokeDetailsCatch onClick={() => history.push(URL.POKEMON_LIST)}>
                                 <ArrowBackIcon /> Back
                             </PokeDetailsCatch>
-                            <PokeDetailsCatch onClick={() => CatchPokemon()}>
+                            <PokeDetailsCatch onClick={() => catchPokemon({setIsModalOpen})}>
                                 <PokeDetailsBallImg width="30px" height="30px" src={PokeballIcon} alt="Pokeball" />
                                 Catch
                             </PokeDetailsCatch>
@@ -220,7 +217,7 @@ const PokemonDetails = () => {
                 onOpen={() => setIsModalOpen(true)} 
                 onClose={() => setIsModalOpen(false)} 
                 commonData={pokemonData}
-                artworkData={pokemonDetailData} />
+                artworkData={pokemonDetailArtwork} />
         </PokeDetailsContainer>
     )
 };

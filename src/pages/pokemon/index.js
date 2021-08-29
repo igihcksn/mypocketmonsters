@@ -23,7 +23,7 @@ const PokemonList = () => {
         isLoadingList,
         loadMorePokeList,
         isLoadingLoad,
-        pokemonData, 
+        pokemonList, 
     } = useContext(PokeContext);
 
     const onClickList = (pokemon) => {
@@ -42,7 +42,7 @@ const PokemonList = () => {
             </PokeFilterList>
             <SimpleGrid columns={[2, null, 5]} spacing={5} p={5}>
                 {
-                    !isLoadingList && pokemonData.length && pokemonData.map((list) => (
+                    !isLoadingList && pokemonList.length && pokemonList.map((list) => (
                         <PokeBoxList key={list.id} onClick={() => onClickList(list)}>
                             <PokeBoxListContainerImage>
                                 <PokeBoxListInnerImage src={list.dreamworld} alt={list.name} loading="lazy" />
