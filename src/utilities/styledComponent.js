@@ -125,13 +125,27 @@ export const PokeHeaderImgContainer = styled.div`
 export const PokeFooter = styled.footer`
     display: flex;
     width: 100%;
-    height: 200px;
+    font-weight: 600;
     background-color: #19072d;
     color: #ffffff;
+    padding: 1rem;
+    justify-content: space-evenly;
 
     @media (max-width: 420px) {
         display: none;
     }
+`;
+
+export const PokeFooterLeft = styled.footer`
+    display: flex;
+    padding: 1rem;
+    flex-direction: column;
+`;
+
+export const PokeFooterRight = styled.footer`
+    display: flex;
+    padding: 1rem;
+    flex-direction: column;
 `;
 
 export const PokeFilterList = styled.div`
