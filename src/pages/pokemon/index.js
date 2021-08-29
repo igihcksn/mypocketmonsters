@@ -13,6 +13,7 @@ import {
 } from 'utilities/styledComponent';
 import { useHistory } from "react-router-dom";
 import { PokeContext } from 'utilities/context';
+import SeacrhInput from './components/searchInput';
 
 const PokemonList = () => {
 
@@ -37,6 +38,7 @@ const PokemonList = () => {
     return (
         <PokeListContainer>
             <PokeFilterList>
+                <SeacrhInput history={history} />
             </PokeFilterList>
             <SimpleGrid columns={[2, null, 5]} spacing={5} p={5}>
                 {

@@ -33,16 +33,13 @@ const MainLayout = () => {
 
     for(const prob in probability) {
       if(prob >= random) {
-          toast({
-            position: "top",
-            duration: 2000,
-            render: () => (
-              <p>
-                Gotcha...
-              </p>
-            ),
-          })
-
+        toast({
+            title: "Gatcha...",
+            description: "Nice throw, your pokemon already",
+            status: "error",
+            duration: 3000,
+            isClosable: true,
+        })
           return true;
       } else {
         toast({

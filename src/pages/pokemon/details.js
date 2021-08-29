@@ -76,18 +76,22 @@ const PokemonDetails = () => {
     );
 
     useEffect(() => {
-        const { loading, data } = PokeCommonData
-        
-        if(data) {
-            setPokemonData({
-                isLoading: loading,
-                data: data.pokemon, 
-            })
+        const { loading, data } = PokeCommonData;
 
-            getSpeciesData(data.pokemon.species.url)
-            getDetailsData(data.pokemon.name);
+        try {
+            if(data) {
+                setPokemonData({
+                    isLoading: loading,
+                    data: data.pokemon, 
+                })
+    
+                getSpeciesData(data.pokemon.species.url)
+                getDetailsData(data.pokemon.name);
+            }
+        } catch (error) {
+            console.log(error)
         }
-    }, [PokeCommonData, getDetailsData, getSpeciesData]);
+    }, [PokeCommonData, getDetailsData, getSpeciesData, history]);
 
     const GenerateTypes = (types) => {
         const res = types.map((list) => (

@@ -16,12 +16,13 @@ export const MobileNav = styled.div`
 
     @media (max-width: 420px) {
         display: flex;
-        background: #19072d;
+        background: rgba(25, 7, 45, 0.9);
         width: 100%;
         height: 80px;
         position: sticky;
         border-radius: 10px 10px 0px 0px;
         bottom: 0;
+        z-index: 5;
         padding: 10px;
         box-shadow: 0 10px 20px 0 rgb(0 0 0 / 40%);
     }
@@ -95,6 +96,8 @@ export const PokeHeaderImgContainer = styled.div`
     width: 100%;
     height: auto;
     min-height: 30vh;
+    display: flex;
+    justify-content: center;
 
     @media (max-width: 420px) {
         flex-direction: column;
@@ -122,6 +125,8 @@ export const PokeFooter = styled.footer`
 export const PokeFilterList = styled.div`
     padding: 1rem;
     display: flex;
+    background: #19072d;
+    color: #ffffff;
 `;
 
 // Pokemon List
