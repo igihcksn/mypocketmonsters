@@ -1,5 +1,5 @@
 import React from 'react';
-import { PokeFooter, PokeFooterLeft, PokeFooterRight } from 'utilities/styledComponent';
+import { PokeFooter } from 'utilities/styledComponent';
 
 const Footer = (props) => (
     <PokeFooter>

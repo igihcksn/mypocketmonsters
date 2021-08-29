@@ -136,18 +136,6 @@ export const PokeFooter = styled.footer`
     }
 `;
 
-export const PokeFooterLeft = styled.footer`
-    display: flex;
-    padding: 1rem;
-    flex-direction: column;
-`;
-
-export const PokeFooterRight = styled.footer`
-    display: flex;
-    padding: 1rem;
-    flex-direction: column;
-`;
-
 export const PokeFilterList = styled.div`
     padding: 1rem;
     display: flex;
