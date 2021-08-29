@@ -75,6 +75,18 @@ export const PokeButtonBackHeader = styled.div`
     }
 `;
 
+export const PokeNotifCatchFail = styled.div`
+    width: 100%;
+    color: #ffffff;
+    font-weight: 700;
+    padding: 2px 20px;
+    border-radius: 10px;
+    border: 2px solid #e45b04;
+    background-color: #af4417;
+    margin: 10px;
+    transform: skewX(-10deg);
+`;
+
 // Header
 export const PokeHeaderImg = styled.img({
     // position: 'absolute',
@@ -203,7 +215,33 @@ export const PokeBoxListInnerTitle = styled.p`
     font-style: italic;
     @media (max-width: 420px) {
         font-size: 16px;
+        padding: 0.5rem;
     }
+`;
+
+export const PokeBoxListInnerNickname = styled.p`
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Exo 2', sans-serif;
+    font-style: italic;
+    @media (max-width: 420px) {
+        font-size: 14px;
+    }
+`;
+
+export const PokeBoxListInnerRelease = styled.p`
+    background-color: #e45b04;
+    padding: 0px 10px;
+    color: #ffffff;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 3;
+    border-radius: 10px;
+    border: 2px solid #af4417;
+    cursor: pointer;
+    transform: skewX(-10deg);
 `;
 
 export const PokeButtonLoadMore = styled.div`

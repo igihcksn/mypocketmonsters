@@ -19,10 +19,11 @@ import {
     PokeDetailsBallImg,
     PokeDetailsActions,
 } from 'utilities/styledComponent';
-import { Skeleton, Stack } from "@chakra-ui/react"
+import { Skeleton, Stack, useDisclosure } from "@chakra-ui/react"
 import { PokeContext } from 'utilities/context';
 import { PokeballIcon } from 'assets/images';
 import { ArrowBackIcon } from '@chakra-ui/icons';
+import ModalNickname from './components/modalNickname';
 
 const PokemonDetails = () => {
 
@@ -47,6 +48,8 @@ const PokemonDetails = () => {
             name: slug
         }
     });
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const getEvolutionChain = (url) => {
         fetch(url)
@@ -129,27 +132,10 @@ const PokemonDetails = () => {
     );
 
     const CatchPokemon = () => {
-        const { data } = pokemonData;
-        const { artWork } = pokemonDetailData;
-        const MyPokemons = localStorage.getItem('myPokemon');
         const ThrowPokeball = randomTry();
-        const mock = {
-            name: data.name,
-            artWork,
-        }
 
         if (ThrowPokeball) {
-            if(!MyPokemons) {
-                localStorage.setItem('myPokemon', JSON.stringify([
-                    mock
-                ]));
-            } else {
-                const parseData = JSON.parse(MyPokemons);
-                localStorage.setItem('myPokemon', JSON.stringify([
-                    mock,
-                    ...parseData,
-                ]));
-            }
+            setIsModalOpen(true)
         }
     }
 
@@ -229,6 +215,12 @@ const PokemonDetails = () => {
                     </PokeDetailsBoxStatus>
                 </PokeDetailsCommon>
             </PokeDetailsInfo>
+            <ModalNickname 
+                isOpen={isModalOpen}  
+                onOpen={() => setIsModalOpen(true)} 
+                onClose={() => setIsModalOpen(false)} 
+                commonData={pokemonData}
+                artworkData={pokemonDetailData} />
         </PokeDetailsContainer>
     )
 };

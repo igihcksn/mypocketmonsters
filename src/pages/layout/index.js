@@ -5,7 +5,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import Header from 'pages/pokemon/components/header';
 import Footer from 'pages/pokemon/components/footer';
 import { PokeThemeProvider } from 'utilities/theme';
-import { MobileNav, MobileNavButton, PokeMainContainer, PokeMainContentContainer } from 'utilities/styledComponent';
+import { MobileNav, MobileNavButton, PokeMainContainer, PokeMainContentContainer, PokeNotifCatchFail } from 'utilities/styledComponent';
 import { PokeProvider } from 'utilities/context';
 import { useToast } from "@chakra-ui/react"
 
@@ -33,22 +33,15 @@ const MainLayout = () => {
 
     for(const prob in probability) {
       if(prob >= random) {
-        toast({
-            title: "Gatcha...",
-            description: "Nice throw, your pokemon already",
-            status: "error",
-            duration: 3000,
-            isClosable: true,
-        })
           return true;
       } else {
         toast({
           position: "top",
-          duration: 2000,
+          duration: 3000,
           render: () => (
-            <p>
-              Opps try again
-            </p>
+            <PokeNotifCatchFail>
+                Opps pokemon broke free, try again
+            </PokeNotifCatchFail>
           ),
         })
 
