@@ -14,7 +14,7 @@ const ModalNickname = (props) => {
         const { artWork } = artworkData;
 
         const mock = {
-            name: data || data.name,
+            name: data.name,
             artWork,
             nickname: nickname,
         }

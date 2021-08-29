@@ -45,7 +45,7 @@ const TrainerDetails = () => {
 
         localStorage.setItem('myPokemon', JSON.stringify(pokemonData));
         setPokemonData([...pokemonData])
-    }
+    };
 
     return (
         <PokeTrainerContainer>
@@ -92,7 +92,7 @@ const TrainerDetails = () => {
                                 ))
                             }
                             {
-                                !pokemonData.length && <p>Empty...</p>
+                                !pokemonData && <p>Empty...</p>
                             }
                         </SimpleGrid>
                     </PokeTrainerList>
