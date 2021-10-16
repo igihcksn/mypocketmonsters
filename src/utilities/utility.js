@@ -4,7 +4,7 @@ import {
 } from "@apollo/client";
 import { 
     API_POKEMON,
-    URL,
+    API,
 } from "./constants";
 
 export const ApolloClinet = new ApolloClient({
@@ -12,8 +12,13 @@ export const ApolloClinet = new ApolloClient({
     cache: new InMemoryCache()
 });
 
+export const PokeApiV1 = new ApolloClient({
+    uri: API.POKE_API_V1_BETA,
+    cache: new InMemoryCache()
+});
+
 export const getUserData = () => {
-    const userData = fetch(URL.RANDOM_USER)
+    const userData = fetch(API.RANDOM_USER)
                         .then(response => response.json())
                         .then(data => data)
                         .catch(error => console.log('user data', error));
