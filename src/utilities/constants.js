@@ -7,9 +7,12 @@ export const URL = {
     POKEMON_LIST    : '/',
     POKEMON_DETAILS : '/:slug/details',
     TRAINER_INFO    : '/trainer',
-    // Api
-    RANDOM_USER: "https://randomuser.me/api/",
 };
+
+export const API = {
+    POKE_API_V1_BETA: "https://beta.pokeapi.co/graphql/v1beta",
+    RANDOM_USER: "https://randomuser.me/api/",
+}
 
 export const POKEMON_TYPES = {
     'normal': '#A8A878',
@@ -112,5 +115,27 @@ export const QUERY = {
                 status
             }
         }
+    `,
+    GET_LIST_REGION_WITH_POKEMON: gql`
+       query pokemon_v2_region {
+        id
+        name
+        pokemon_v2_generations {
+        name
+            pokemon_v2_pokemonspecies {
+                id
+                name
+                is_legendary
+                evolution_chain_id
+                has_gender_differences
+                base_happiness
+                capture_rate
+                order
+                hatch_counter
+                evolves_from_species_id
+                forms_switchable
+            }
+        }
+      }
     `,
 }

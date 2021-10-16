@@ -2,7 +2,7 @@
 
 ### Installation
 
-This is documentation from exploration project using some requirement from Tokopedia Recruitment Team, Hope can running well either in local and production link.
+This is documentation from exploration project, Hope can running well either in local and production link.
 
 Install the dependencies and devDependencies and start the server.
 
