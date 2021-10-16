@@ -7,6 +7,8 @@ export const URL = {
     POKEMON_LIST    : '/',
     POKEMON_DETAILS : '/:slug/details',
     TRAINER_INFO    : '/trainer',
+    // Api
+    RANDOM_USER: "https://randomuser.me/api/",
 };
 
 export const POKEMON_TYPES = {

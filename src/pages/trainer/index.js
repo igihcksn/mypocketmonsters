@@ -23,15 +23,28 @@ import {
 } from 'utilities/styledComponent';
 import { SimpleGrid } from "@chakra-ui/react"
 import { ArrowBackIcon } from '@chakra-ui/icons';
+import { getUserData } from 'utilities/utility';
 
 const TrainerDetails = () => {
 
     const history = useHistory();
 
     const [pokemonData, setPokemonData] = useState([]);
+    const [randomUser, setRandomUser] = useState(null);
 
     useEffect(() => {
         setPokemonData(JSON.parse(localStorage.getItem('myPokemon')))
+    }, []);
+
+    useEffect(() => {
+        getUserData()
+            .then(res => {
+                setRandomUser({
+                    name: `${res.results[0].name.first} ${res.results[0].name.last}`,
+                    age: res.results[0].dob.age,
+                })
+            })
+            .catch(err => console.log(err))
     }, []);
 
     const onClickList = (pokemon) => {
@@ -60,10 +73,10 @@ const TrainerDetails = () => {
                 <PokeTrainerInfoRight>
                     <PokeTrainerName>
                         <li>
-                            NAME: BUDI
+                            NAME: { randomUser ? randomUser.name : 'loading..' }
                         </li>
                         <li>
-                            AGE: 18
+                            AGE: { randomUser ? randomUser.age : 'loading..' }
                         </li>
                         <li>
                             HAIR: BLACK
