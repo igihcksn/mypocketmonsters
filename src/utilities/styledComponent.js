@@ -124,11 +124,13 @@ export const PokeHeaderImgContainer = styled.div`
 
 export const PokeFooter = styled.footer`
     display: flex;
+    flex-wrap: wrap;
     width: 100%;
+    min-height: 30vh;
     font-weight: 600;
     background-color: #19072d;
     color: #ffffff;
-    padding: 1rem;
+    padding: 5vh;
     justify-content: space-evenly;
 
     @media (max-width: 420px) {
