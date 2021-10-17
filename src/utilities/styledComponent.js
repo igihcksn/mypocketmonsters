@@ -87,6 +87,76 @@ export const PokeNotifCatchFail = styled.div`
     transform: skewX(-10deg);
 `;
 
+// Header
+export const PokeHeaderImg = styled.img({
+    // position: 'absolute',
+    // top: '2%',
+    maxWidth: '500px',
+    // position: 'absolute',
+    // bottom: '0',
+});
+
+export const PokeHeader = styled.header`
+    display: flex;
+    color: #19072d;
+    justify-content: center;
+    align-content: center;
+    position: relative;
+
+    @media (max-width: 420px) {
+        display: inline;
+    }
+`;
+
+export const PokeHeaderImgContainer = styled.div`
+    width: 100%;
+    height: auto;
+    min-height: 30vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    @media (max-width: 420px) {
+        flex-direction: column;
+        display: ${props =>
+            props.isList ? 'none' : 'flex'
+        };
+        min-heigh: ${props =>
+            props.isList ? '30vh' : '10vh'
+        };
+    }
+`;
+
+export const PokeHeaderLeftSide = styled.div`
+    padding: 5vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+`;
+
+export const PokeHeaderTitle = styled.h1`
+    color: #6523b6;
+    font-size: 3rem;
+    font-weight: 700;
+    font-family: 'Exo 2',sans-serif;
+    text-transform: uppercase;
+    font-style: italic;
+    text-shadow: 1px 1px 3px rgb(0 0 0 / 30%);
+
+    @media (max-width: 420px) {
+        font-size: 2.5rem;
+    }
+`;
+
+export const PokeHeaderDescription = styled.p`
+    color: rgb(23 67 125);
+    font-size: 1.5rem;
+    font-style: italic;
+
+    @media (max-width: 420px) {
+        font-size: 1rem;
+    }
+`;
+
 export const PokeFooter = styled.footer`
     display: flex;
     flex-wrap: wrap;
