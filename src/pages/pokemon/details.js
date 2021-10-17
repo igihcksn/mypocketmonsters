@@ -14,6 +14,7 @@ import {
     PokeDetailsName,
     PokeDetailsSprites, 
     PokeDetailTypes,
+    PokeDetailsStats,
     PokeDetailsLeftImage,
     PokeDetailTitleSection,
     PokeDetailsBallImg,
@@ -29,9 +30,13 @@ const PokemonDetails = () => {
 
     const history = useHistory();
     const { slug } = useParams();
-    const { catchPokemon, pokemonDetailArtwork, setPokemonDetailArtwork, setPokemonDetailData } = useContext(PokeContext)
+    const { catchPokemon, pokemonDetailArtwork, setPokemonDetailArtwork } = useContext(PokeContext)
 
     const [pokemonData, setPokemonData] = useState({
+        isLoading: true,
+        data: null,
+    });
+    const [pokemonDetailData, setPokemonDetailData] = useState({
         isLoading: true,
         data: null,
     });
@@ -66,9 +71,7 @@ const PokemonDetails = () => {
                         artWork: data.sprites.other,
                     });
                     setPokemonDetailData({
-                        data: {
-                            name: data.name,
-                        }
+                        data: data
                     });
                 }
             );
@@ -122,6 +125,14 @@ const PokemonDetails = () => {
     const GenerateMoves = (moves) => {
         const res = moves.map((list) => (
             <PokeDetailsAbilitiesMoves key={list.move.name} type="move">{list.move.name}</PokeDetailsAbilitiesMoves>
+        ));
+
+        return res;
+    };
+
+    const GenerateStats = (stats) => {
+        const res = stats.map((list) => (
+            <PokeDetailsStats key={list.stat.name}>{list.stat.name}: {list.base_stat}</PokeDetailsStats>
         ));
 
         return res;
@@ -205,6 +216,18 @@ const PokemonDetails = () => {
                     <PokeDetailsBoxStatus>
                         {
                             !pokemonData.isLoading && GenerateMoves(pokemonData.data.moves)
+                        }
+                        {
+                            pokemonData.isLoading && <Skeleton height="20px" />
+                        }
+                    </PokeDetailsBoxStatus>
+                    <PokeDetailTitleSection>Stats</PokeDetailTitleSection>
+                    <PokeDetailsBoxStatus>
+                        {
+                            !pokemonDetailData.isLoading &&
+                                <PokeDetailsBoxStatusUl>
+                                    { GenerateStats(pokemonDetailData.data.stats) }
+                                </PokeDetailsBoxStatusUl>
                         }
                         {
                             pokemonData.isLoading && <Skeleton height="20px" />
