@@ -102,6 +102,10 @@ export const PokeHeader = styled.header`
     justify-content: center;
     align-content: center;
     position: relative;
+
+    @media (max-width: 420px) {
+        display: inline;
+    }
 `;
 
 export const PokeHeaderImgContainer = styled.div`
@@ -109,8 +113,8 @@ export const PokeHeaderImgContainer = styled.div`
     height: auto;
     min-height: 30vh;
     display: flex;
-    justify-content: center;
-
+    align-items: center;
+    flex-direction: column;
     @media (max-width: 420px) {
         flex-direction: column;
         display: ${props =>
@@ -119,6 +123,37 @@ export const PokeHeaderImgContainer = styled.div`
         min-heigh: ${props =>
             props.isList ? '30vh' : '10vh'
         };
+    }
+`;
+
+export const PokeHeaderLeftSide = styled.div`
+    padding: 5vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+`;
+
+export const PokeHeaderTitle = styled.h1`
+    color: #6523b6;
+    font-size: 3rem;
+    font-weight: 700;
+    font-family: 'Exo 2',sans-serif;
+    text-transform: uppercase;
+    font-style: italic;
+    text-shadow: 1px 1px 3px rgb(0 0 0 / 30%);
+
+    @media (max-width: 420px) {
+        font-size: 2.5rem;
+    }
+`;
+
+export const PokeHeaderDescription = styled.p`
+    color: rgb(23 67 125);
+    font-size: 1.5rem;
+    font-style: italic;
+
+    @media (max-width: 420px) {
+        font-size: 1rem;
     }
 `;
 
@@ -143,6 +178,21 @@ export const PokeFilterList = styled.div`
     display: flex;
     background: #19072d;
     color: #ffffff;
+`;
+
+export const PokeFooterLinks = styled.div`
+    width: 50%; 
+    display: ${props => 
+        props.flex ? 'flex' : 'inline'
+    }; 
+    flex-wrap: ${props =>
+        props.wrap ? 'wrap' : 'nowrap'
+    };
+`;
+
+export const PokeFooterCredits = styled.div`
+    width: 100%;
+    border-top: 2px solid white;
 `;
 
 // Pokemon List
@@ -374,6 +424,10 @@ export const PokeDetailsAbilitiesMoves = styled.span`
     padding: 0px 2px;
     border-radius: 4px;
     display: inline-block;
+`;
+
+export const PokeDetailsStats = styled.p`
+    text-transform: uppercase;
 `;
 
 export const PokeDetailsLeftImage = styled.div`
