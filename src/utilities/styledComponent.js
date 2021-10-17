@@ -87,41 +87,6 @@ export const PokeNotifCatchFail = styled.div`
     transform: skewX(-10deg);
 `;
 
-// Header
-export const PokeHeaderImg = styled.img({
-    // position: 'absolute',
-    // top: '2%',
-    maxWidth: '500px',
-    // position: 'absolute',
-    // bottom: '0',
-});
-
-export const PokeHeader = styled.header`
-    display: flex;
-    color: #19072d;
-    justify-content: center;
-    align-content: center;
-    position: relative;
-`;
-
-export const PokeHeaderImgContainer = styled.div`
-    width: 100%;
-    height: auto;
-    min-height: 30vh;
-    display: flex;
-    justify-content: center;
-
-    @media (max-width: 420px) {
-        flex-direction: column;
-        display: ${props =>
-            props.isList ? 'none' : 'flex'
-        };
-        min-heigh: ${props =>
-            props.isList ? '30vh' : '10vh'
-        };
-    }
-`;
-
 export const PokeFooter = styled.footer`
     display: flex;
     flex-wrap: wrap;
