@@ -145,6 +145,21 @@ export const PokeFilterList = styled.div`
     color: #ffffff;
 `;
 
+export const PokeFooterLinks = styled.div`
+    width: 50%; 
+    display: ${props => 
+        props.flex ? 'flex' : 'inline'
+    }; 
+    flex-wrap: ${props =>
+        props.wrap ? 'wrap' : 'nowrap'
+    };
+`;
+
+export const PokeFooterCredits = styled.div`
+    width: 100%;
+    border-top: 2px solid white;
+`;
+
 // Pokemon List
 
 export const PokeListContainer = styled.div`
