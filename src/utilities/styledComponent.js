@@ -376,6 +376,10 @@ export const PokeDetailsAbilitiesMoves = styled.span`
     display: inline-block;
 `;
 
+export const PokeDetailsStats = styled.p`
+    text-transform: uppercase;
+`;
+
 export const PokeDetailsLeftImage = styled.div`
     display: flex;
     align-self: flex-start;
