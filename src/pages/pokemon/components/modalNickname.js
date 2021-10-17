@@ -8,7 +8,6 @@ const ModalNickname = (props) => {
 
     const [nickname, setNickname] = useState('');
 
-    
     const ClickSave = () => {
         const { data } = commonData;
         const { artWork } = artworkData;
@@ -43,21 +42,21 @@ const ModalNickname = (props) => {
                 <ModalCloseButton />
                 <ModalBody>
                     <p>Do you wanna give the nickname? </p>
-                    <Input 
+                    <Input
                         value={nickname}
                         onChange={(e) => setNickname(e.target.value)}
                         placeholder="Pokemon Nickname" />
                 </ModalBody>
 
                 <ModalFooter>
-                    <Button 
+                    <Button
                         onClick={() => ClickSave()}
-                        colorScheme="blue" 
+                        colorScheme="blue"
                         mr={3}>
                         Save
                     </Button>
-                    <Button 
-                        variant="ghost" 
+                    <Button
+                        variant="ghost"
                         onClick={() => ClickSave()}>
                         No
                     </Button>

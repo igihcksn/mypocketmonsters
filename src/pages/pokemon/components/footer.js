@@ -3,7 +3,6 @@ import { PokeFooter } from 'utilities/styledComponent';
 
 const Footer = (props) => (
     <PokeFooter>
-        
         <div className="footer-links" style={{ width: '50%', display: "flex", flexWrap: "wrap" }}>
             <span style = {{width: '100%', fontSize: '1.5rem'}}>Pokemon Official Link : </span>
             <a style={{minWidth: "50%", margin: "30px 0"}}  href="https://www.pokemon.com/us/">Pokemon</a>

@@ -9,7 +9,7 @@ const PokeContext = React.createContext({});
 const PokeProvider = (props) => {
 
     const toast = useToast();
-    
+
     const [limitData, setLimitData]         = useState(10);
     const [pokemonList, setPokemonList]     = useState({});
     const [isLoadingList, setIsLoadingList] = useState(true);

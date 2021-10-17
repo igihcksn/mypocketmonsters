@@ -2,7 +2,7 @@ import {
     ApolloClient,
     InMemoryCache,
 } from "@apollo/client";
-import { 
+import {
     API_POKEMON,
     API,
 } from "./constants";

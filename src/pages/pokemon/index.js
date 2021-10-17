@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { URL } from 'utilities/constants';
 import { SimpleGrid } from "@chakra-ui/react"
-import { 
-    PokeBoxList, 
-    PokeBoxListContainerImage, 
-    PokeBoxListInnerImage, 
+import {
+    PokeBoxList,
+    PokeBoxListContainerImage,
+    PokeBoxListInnerImage,
     PokeBoxListInnerTitle,
     PokeButtonLoadMore,
     PokeButtonText,
@@ -19,11 +19,11 @@ const PokemonList = () => {
 
     const history = useHistory();
 
-    const { 
+    const {
         isLoadingList,
         loadMorePokeList,
         isLoadingLoad,
-        pokemonList, 
+        pokemonList,
     } = useContext(PokeContext);
 
     const onClickList = (pokemon) => {

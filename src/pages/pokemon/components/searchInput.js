@@ -40,7 +40,7 @@ const SeacrhInput = (props) => {
             })
         };
     }, [pokemonNotFound, props, toast])
-  
+
     return (
       <InputGroup size='md'>
         <Input
@@ -53,13 +53,13 @@ const SeacrhInput = (props) => {
           onChange={onChangeInput}
         />
         <InputRightElement width='4.5rem'>
-          <Button 
-            bg='#19072d' 
+          <Button
+            bg='#19072d'
             _hover={{
                 backgroundColor: '#19072d'
             }}
             h='1.75rem'
-            size='sm' 
+            size='sm'
             disabled={pokemonName === '' || isLoading}
             onClick={() => onFindPokemon()}
         >

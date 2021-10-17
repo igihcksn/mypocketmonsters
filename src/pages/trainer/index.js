@@ -2,7 +2,7 @@ import { Trainer } from 'assets/images';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { URL } from 'utilities/constants';
-import { 
+import {
     PokeTrainerInfoLeft,
     PokeTrainerInfoRight,
     PokeTrainerName,

@@ -5,11 +5,11 @@ import { ChakraProvider } from '@chakra-ui/react';
 import Header from 'pages/pokemon/components/header';
 import Footer from 'pages/pokemon/components/footer';
 import { PokeThemeProvider } from 'utilities/theme';
-import { 
-  MobileNav, 
-  MobileNavButton, 
-  PokeMainContainer, 
-  PokeMainContentContainer, 
+import {
+  MobileNav,
+  MobileNavButton,
+  PokeMainContainer,
+  PokeMainContentContainer,
 } from 'utilities/styledComponent';
 import { PokeContext } from 'utilities/context';
 import ModalNickname from 'pages/pokemon/components/modalNickname';
@@ -25,10 +25,10 @@ const NotFound = () => (
 
 const MainLayout = () => {
   const history = useHistory();
-  const { 
+  const {
     pokemonDetailData,
     pokemonDetailArtwork,
-    randomTry, 
+    randomTry,
   } = useContext(PokeContext);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -60,24 +60,24 @@ const MainLayout = () => {
 
                     <Route component={NotFound} />
                 </Switch>
-            </Suspense>   
+            </Suspense>
           </PokeMainContentContainer>
 
           <MobileNav>
-              <MobileNavButton 
-                active={history.location.pathname === URL.POKEMON_LIST} 
+              <MobileNavButton
+                active={history.location.pathname === URL.POKEMON_LIST}
                 onClick={() => clickMenu(URL.POKEMON_LIST)}>Home</MobileNavButton>
-              <MobileNavButton 
-                hidden={(history.location.pathname === URL.POKEMON_LIST || history.location.pathname === URL.TRAINER_INFO)} 
+              <MobileNavButton
+                hidden={(history.location.pathname === URL.POKEMON_LIST || history.location.pathname === URL.TRAINER_INFO)}
                 onClick={() => CatchPokemon()}>Catch</MobileNavButton>
-              <MobileNavButton 
+              <MobileNavButton
                 active={history.location.pathname === URL.TRAINER_INFO} onClick={() => clickMenu(URL.TRAINER_INFO)}>MyList</MobileNavButton>
           </MobileNav>
 
-          <ModalNickname 
-              isOpen={isModalOpen}  
-              onOpen={() => setIsModalOpen(true)} 
-              onClose={() => setIsModalOpen(false)} 
+          <ModalNickname
+              isOpen={isModalOpen}
+              onOpen={() => setIsModalOpen(true)}
+              onClose={() => setIsModalOpen(false)}
               commonData={pokemonDetailData}
               artworkData={pokemonDetailArtwork} />
         </PokeMainContainer>

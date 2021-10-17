@@ -35,7 +35,7 @@ export const MobileNavButton = styled.button`
     padding: 2px 20px;
     border-radius: 10px;
     border: 2px solid #e45b04;
-    background-color: ${props => 
+    background-color: ${props =>
         props.active ? '#e45b04' : '#af4417'
     };
     margin: 10px;
@@ -43,7 +43,7 @@ export const MobileNavButton = styled.button`
 `;
 
 export const PokeButtonBack = styled.div`
-    font-size: 24px; 
+    font-size: 24px;
     background-color: #ffffff;
     color: #220a3d;
     border-radius: 4px;
@@ -69,7 +69,7 @@ export const PokeButtonBackHeader = styled.div`
     justify-content: flex-start;
 
     @media (max-width: 420px) {
-        display: ${props => 
+        display: ${props =>
             props.isList ? 'inline-block' : 'none'
         };
     }
@@ -257,7 +257,7 @@ export const PokeButtonLoadMore = styled.div`
 `;
 
 export const PokeButtonText = styled.p`
-    font-size: 24px; 
+    font-size: 24px;
     background-color: #19072d;
     color: #ffffff;
     border-radius: 4px;
@@ -304,7 +304,7 @@ export const PokeDetailsCommon = styled.div`
 `;
 
 export const PokeDetailsName = styled.p`
-    font-size: 24px; 
+    font-size: 24px;
     background-color: #f9c921;
     color: #220a3d;
     border-radius: 4px;
@@ -363,7 +363,7 @@ export const PokeDetailTypes = styled.span`
 `;
 
 export const PokeDetailsAbilitiesMoves = styled.span`
-    margin: ${props => 
+    margin: ${props =>
         props.type === 'move' ? '2px 0px' : 0
     };
     color: #ffffff;

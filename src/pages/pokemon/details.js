@@ -2,17 +2,17 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { API_POKEMON_OFFICIAL, QUERY, URL } from 'utilities/constants';
 import { useHistory, useParams } from "react-router-dom";
-import { 
+import {
     PokeDetailsAbilitiesMoves,
     PokeDetailsBoxStatus,
     PokeDetailsBoxStatusUl,
     PokeDetailsCatch,
-    PokeDetailsCommon, 
-    PokeDetailsContainer, 
-    PokeDetailsImg, 
+    PokeDetailsCommon,
+    PokeDetailsContainer,
+    PokeDetailsImg,
     PokeDetailsInfo,
     PokeDetailsName,
-    PokeDetailsSprites, 
+    PokeDetailsSprites,
     PokeDetailTypes,
     PokeDetailsLeftImage,
     PokeDetailTitleSection,
@@ -56,7 +56,7 @@ const PokemonDetails = () => {
             data: data.chain
         }));
     };
-    
+
     const getDetailsData = useCallback(
         (pokemonName) => {
             fetch(`${API_POKEMON_OFFICIAL}/pokemon/${pokemonName}`)
@@ -90,9 +90,9 @@ const PokemonDetails = () => {
             if(data) {
                 setPokemonData({
                     isLoading: loading,
-                    data: data.pokemon, 
+                    data: data.pokemon,
                 })
-    
+
                 getSpeciesData(data.pokemon.species.url)
                 getDetailsData(data.pokemon.name);
             }
@@ -212,10 +212,10 @@ const PokemonDetails = () => {
                     </PokeDetailsBoxStatus>
                 </PokeDetailsCommon>
             </PokeDetailsInfo>
-            <ModalNickname 
-                isOpen={isModalOpen}  
-                onOpen={() => setIsModalOpen(true)} 
-                onClose={() => setIsModalOpen(false)} 
+            <ModalNickname
+                isOpen={isModalOpen}
+                onOpen={() => setIsModalOpen(true)}
+                onClose={() => setIsModalOpen(false)}
                 commonData={pokemonData}
                 artworkData={pokemonDetailArtwork} />
         </PokeDetailsContainer>
