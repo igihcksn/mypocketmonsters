@@ -384,6 +384,24 @@ export const PokeDetailsLeftImage = styled.div`
     width: 100%;
 `;
 
+export const PokeDetailsEvolutions = styled.span`
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+	text-align: center;
+`;
+
+export const PokeDetailsEvolutionsCurrent = styled.span`
+	font-weight: 600;
+	transform: skewX(-10deg);
+	background-color: #f9c921;
+	color: #220a3d;
+	padding: 0px 10px;
+	border: 1px solid #19072d;
+	border-radius: 4px;
+	margin: 0 auto;
+`;
+
 export const PokeDetailsCatch = styled.div`
     color: #ffffff;
     font-weight: 700;
