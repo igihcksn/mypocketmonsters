@@ -19,6 +19,8 @@ import {
     PokeDetailTitleSection,
     PokeDetailsBallImg,
     PokeDetailsActions,
+    PokeDetailsEvolutions,
+	PokeDetailsEvolutionsCurrent,
 } from 'utilities/styledComponent';
 import { Skeleton, Stack } from "@chakra-ui/react"
 import { PokeContext } from 'utilities/context';
@@ -147,6 +149,25 @@ const PokemonDetails = () => {
         </PokeDetailsSprites>
     );
 
+	const GenerateEvolutions = evolutions => {
+		const isCurrentEvo = evolution =>
+			evolution === PokeCommonData?.data.pokemon.name;
+
+		const evos = evolutions.map(evo => {
+			const isCurrent = isCurrentEvo(evo);
+			return isCurrent ? (
+				<PokeDetailsEvolutionsCurrent>
+					{evo.toUpperCase()}
+				</PokeDetailsEvolutionsCurrent>
+			) : (
+				<PokeDetailsEvolutions>
+					{evo.toUpperCase()}
+				</PokeDetailsEvolutions>
+			);
+		});
+		return evos;
+	};
+
     return (
         <PokeDetailsContainer>
             <PokeDetailsLeftImage>
@@ -212,6 +233,20 @@ const PokemonDetails = () => {
                             pokemonData.isLoading && <Skeleton height="20px" />
                         }
                     </PokeDetailsBoxStatus>
+                    <PokeDetailTitleSection>Evolution Chain</PokeDetailTitleSection>
+                        <PokeDetailsBoxStatus flex>
+                            {!pokemonEvolutionData.isLoading &&
+                                GenerateEvolutions([
+                                    pokemonEvolutionData.data.species.name,
+                                    pokemonEvolutionData.data.evolves_to[0].species
+                                        .name,
+                                    pokemonEvolutionData.data.evolves_to[0]
+                                        .evolves_to[0].species.name,
+                                ])}
+                            {pokemonEvolutionData.isLoading && (
+                                <Skeleton height='20px' />
+                            )}
+                        </PokeDetailsBoxStatus>
                     <PokeDetailTitleSection>Moves</PokeDetailTitleSection>
                     <PokeDetailsBoxStatus>
                         {
