@@ -25,3 +25,9 @@ export const getUserData = () => {
 
     return userData;
 }
+
+export function importAll(context) {
+    let modules = {};
+    context.keys().map((item, index) => ( modules[item.replace('./', '')] = context(item) ));
+    return modules;
+}

@@ -25,6 +25,7 @@ import { PokeContext } from 'utilities/context';
 import { PokeballIcon } from 'assets/images';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import ModalNickname from './components/modalNickname';
+import { importAll } from 'utilities/utility';
 
 const PokemonDetails = () => {
 
@@ -148,21 +149,14 @@ const PokemonDetails = () => {
         </PokeDetailsSprites>
     );
 
-    function importAll(context) {
-        let modules = {};
-        context.keys().map((item, index) => ( modules[item.replace('./', '')] = context(item) ));
-        return modules;
-    }
-
-    const gameLogos = importAll(require.context('../../assets/images/game-logos', false, /\.(png|jpe?g|svg)$/));
     const GenerateGameVersions = (game_indices) => {
+        const gameLogos = importAll(require.context('../../assets/images/game-logos', false, /\.(png|jpe?g|svg)$/));
         const res = game_indices.map((game) => {
-                const gameVersionName = game.version.name;
-                const logoImport = gameLogos[`${gameVersionName}.png`] || "";
+            const gameVersionName = game.version.name;
+            const logoImport = gameLogos[`${gameVersionName}.png`] || "";
 
-                return <img alt={`${gameVersionName}-game-logo`} src={logoImport.default}/>
-            }
-        );
+            return <img alt={`${gameVersionName}-game-logo`} src={logoImport.default}/>
+        });
 
         return res;
     };
