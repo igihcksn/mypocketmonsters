@@ -46,6 +46,7 @@ const PokemonDetails = () => {
     });
 
     const PokeCommonData = useQuery(QUERY.GET_POKEMON_BY_NAME, {
+        fetchPolicy: "no-cache",
         variables: {
             name: slug
         }
@@ -147,6 +148,25 @@ const PokemonDetails = () => {
         </PokeDetailsSprites>
     );
 
+    function importAll(context) {
+        let modules = {};
+        context.keys().map((item, index) => ( modules[item.replace('./', '')] = context(item) ));
+        return modules;
+    }
+
+    const gameLogos = importAll(require.context('../../assets/images/game-logos', false, /\.(png|jpe?g|svg)$/));
+    const GenerateGameVersions = (game_indices) => {
+        const res = game_indices.map((game) => {
+                const gameVersionName = game.version.name;
+                const logoImport = gameLogos[`${gameVersionName}.png`] || "";
+
+                return <img alt={`${gameVersionName}-game-logo`} src={logoImport.default}/>
+            }
+        );
+
+        return res;
+    };
+
     return (
         <PokeDetailsContainer>
             <PokeDetailsLeftImage>
@@ -227,6 +247,18 @@ const PokemonDetails = () => {
                             !pokemonDetailData.isLoading &&
                                 <PokeDetailsBoxStatusUl>
                                     { GenerateStats(pokemonDetailData.data.stats) }
+                                </PokeDetailsBoxStatusUl>
+                        }
+                        {
+                            pokemonData.isLoading && <Skeleton height="20px" />
+                        }
+                    </PokeDetailsBoxStatus>
+                    <PokeDetailTitleSection>Game Versions</PokeDetailTitleSection>
+                    <PokeDetailsBoxStatus>
+                        {
+                            !pokemonDetailData.isLoading &&
+                                <PokeDetailsBoxStatusUl>
+                                    { GenerateGameVersions(pokemonDetailData.data.game_indices) }
                                 </PokeDetailsBoxStatusUl>
                         }
                         {
