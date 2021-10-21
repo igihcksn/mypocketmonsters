@@ -14,6 +14,7 @@ import {
 import { useHistory } from "react-router-dom";
 import { PokeContext } from 'utilities/context';
 import SeacrhInput from './components/searchInput';
+import Navbar from './components/navbar';
 
 const PokemonList = () => {
 
@@ -40,6 +41,7 @@ const PokemonList = () => {
             <PokeFilterList>
                 <SeacrhInput history={history} />
             </PokeFilterList>
+            <Navbar />
             <SimpleGrid columns={[2, null, 5]} spacing={5} p={5}>
                 {
                     !isLoadingList && pokemonList.length && pokemonList.map((list) => (
