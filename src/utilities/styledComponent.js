@@ -1,6 +1,8 @@
 import styled from '@emotion/styled/macro';
 import { PokeballIcon } from 'assets/images';
 import { POKEMON_TYPES } from './constants';
+import { FaBars } from 'react-icons/fa';
+import { NavLink as Link } from 'react-router-dom';
 
 export const PokeMainContainer = styled.div`
     font-family: 'Exo 2', sans-serif;
@@ -451,6 +453,24 @@ export const PokeDetailsLeftImage = styled.div`
     width: 100%;
 `;
 
+export const PokeDetailsEvolutions = styled.span`
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+	text-align: center;
+`;
+
+export const PokeDetailsEvolutionsCurrent = styled.span`
+	font-weight: 600;
+	transform: skewX(-10deg);
+	background-color: #f9c921;
+	color: #220a3d;
+	padding: 0px 10px;
+	border: 1px solid #19072d;
+	border-radius: 4px;
+	margin: 0 auto;
+`;
+
 export const PokeDetailsCatch = styled.div`
     color: #ffffff;
     font-weight: 700;
@@ -560,4 +580,56 @@ export const PokeTrainerList = styled.ul`
     padding: 10px;
     list-style-type: none;
     box-shadow: 0 10px 20px 0 rgb(0 0 0 / 40%);
+`;
+
+
+export const Nav = styled.nav`
+  background: #c39d1a;
+//   background: linear-gradient(#19072d -50%, #c39d1a , #19072d 200%);
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem calc((100vw - 1000px) / 2);
+  z-index: 10;
+`;
+
+export const NavLink = styled(Link)`
+  color: #000;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-size: 20px;
+  font-family: 'Exo 2', sans-serif;
+  color: rgb(23 67 125);
+  font-style: italic;
+  font-weight: 500;
+  padding: 0 3rem;
+  height: 100%;
+  cursor: pointer;
+  &.active {
+    color: #fff;
+  }
+`;
+
+export const Bars = styled(FaBars)`
+  display: none;
+  color: #fff;
+  @media screen and (max-width: 768px) {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(-100%, 75%);
+    font-size: 1.8rem;
+    cursor: pointer;
+  }
+`;
+
+export const NavMenu = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: -24px;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
