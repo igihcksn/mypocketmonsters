@@ -400,6 +400,19 @@ export const PokeDetailsSprites = styled.div`
     }
 `;
 
+export const PokeDetailsGameVersions = styled.div`
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
+    @media (max-width: 900px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+`;
+
+export const PokeDetailsGameVersion = styled.div`
+    padding: 5px;
+`;
+
 export const PokeDetailTypes = styled.span`
     color: #19072d;
     background-color: ${props =>

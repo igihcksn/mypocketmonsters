@@ -9,6 +9,7 @@ import {
     PokeDetailsCatch,
     PokeDetailsCommon, 
     PokeDetailsContainer, 
+    PokeDetailsGameVersions,
     PokeDetailsImg, 
     PokeDetailsInfo,
     PokeDetailsName,
@@ -19,6 +20,7 @@ import {
     PokeDetailTitleSection,
     PokeDetailsBallImg,
     PokeDetailsActions,
+    PokeDetailsGameVersion,
     PokeDetailsEvolutions,
 	PokeDetailsEvolutionsCurrent,
 } from 'utilities/styledComponent';
@@ -27,6 +29,7 @@ import { PokeContext } from 'utilities/context';
 import { PokeballIcon } from 'assets/images';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import ModalNickname from './components/modalNickname';
+import { importAll } from 'utilities/utility';
 
 const PokemonDetails = () => {
 
@@ -48,6 +51,7 @@ const PokemonDetails = () => {
     });
 
     const PokeCommonData = useQuery(QUERY.GET_POKEMON_BY_NAME, {
+        fetchPolicy: "no-cache",
         variables: {
             name: slug
         }
@@ -149,6 +153,29 @@ const PokemonDetails = () => {
         </PokeDetailsSprites>
     );
 
+    const GenerateGameVersions = (game_indices) => {
+        if (game_indices.length === 0) {
+            return <p>No games found</p>
+        }
+
+        const gameLogos = importAll(require.context('../../assets/images/game-logos', false, /\.(png|jpe?g|svg)$/));
+        const res = game_indices.map((game) => {
+            const gameVersionName = game.version.name;
+            const logoImport = gameLogos[`${gameVersionName}.png`] || "";
+
+            return (
+                <PokeDetailsGameVersion>
+                    <img alt={`${gameVersionName}-game-logo`} aria-label={`${gameVersionName} game logo`} src={logoImport.default} />
+                </PokeDetailsGameVersion>
+            )
+        });
+
+        return (
+            <PokeDetailsGameVersions>
+                {res}
+            </PokeDetailsGameVersions>
+        )
+    };
 	const GenerateEvolutions = evolutions => {
 		const isCurrentEvo = evolution =>
 			evolution === PokeCommonData?.data.pokemon.name;
@@ -263,6 +290,15 @@ const PokemonDetails = () => {
                                 <PokeDetailsBoxStatusUl>
                                     { GenerateStats(pokemonDetailData.data.stats) }
                                 </PokeDetailsBoxStatusUl>
+                        }
+                        {
+                            pokemonData.isLoading && <Skeleton height="20px" />
+                        }
+                    </PokeDetailsBoxStatus>
+                    <PokeDetailTitleSection>Game Versions</PokeDetailTitleSection>
+                    <PokeDetailsBoxStatus>
+                        {
+                            !pokemonDetailData.isLoading && GenerateGameVersions(pokemonDetailData.data.game_indices)
                         }
                         {
                             pokemonData.isLoading && <Skeleton height="20px" />
