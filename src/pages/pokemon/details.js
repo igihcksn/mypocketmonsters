@@ -9,6 +9,7 @@ import {
     PokeDetailsCatch,
     PokeDetailsCommon, 
     PokeDetailsContainer, 
+    PokeDetailsGameVersions,
     PokeDetailsImg, 
     PokeDetailsInfo,
     PokeDetailsName,
@@ -19,6 +20,7 @@ import {
     PokeDetailTitleSection,
     PokeDetailsBallImg,
     PokeDetailsActions,
+    PokeDetailsGameVersion,
 } from 'utilities/styledComponent';
 import { Skeleton, Stack } from "@chakra-ui/react"
 import { PokeContext } from 'utilities/context';
@@ -150,15 +152,27 @@ const PokemonDetails = () => {
     );
 
     const GenerateGameVersions = (game_indices) => {
+        if (game_indices.length === 0) {
+            return <p>No games found</p>
+        }
+
         const gameLogos = importAll(require.context('../../assets/images/game-logos', false, /\.(png|jpe?g|svg)$/));
         const res = game_indices.map((game) => {
             const gameVersionName = game.version.name;
             const logoImport = gameLogos[`${gameVersionName}.png`] || "";
 
-            return <img alt={`${gameVersionName}-game-logo`} src={logoImport.default}/>
+            return (
+                <PokeDetailsGameVersion>
+                    <img alt={`${gameVersionName}-game-logo`} aria-label={`${gameVersionName} game logo`} src={logoImport.default} />
+                </PokeDetailsGameVersion>
+            )
         });
 
-        return res;
+        return (
+            <PokeDetailsGameVersions>
+                {res}
+            </PokeDetailsGameVersions>
+        )
     };
 
     return (
@@ -250,10 +264,7 @@ const PokemonDetails = () => {
                     <PokeDetailTitleSection>Game Versions</PokeDetailTitleSection>
                     <PokeDetailsBoxStatus>
                         {
-                            !pokemonDetailData.isLoading &&
-                                <PokeDetailsBoxStatusUl>
-                                    { GenerateGameVersions(pokemonDetailData.data.game_indices) }
-                                </PokeDetailsBoxStatusUl>
+                            !pokemonDetailData.isLoading && GenerateGameVersions(pokemonDetailData.data.game_indices)
                         }
                         {
                             pokemonData.isLoading && <Skeleton height="20px" />
